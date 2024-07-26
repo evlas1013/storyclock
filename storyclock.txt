@@ -1,0 +1,193 @@
+var totalTimeSeconds = 0;
+var degreesPerSecond = 360/totalTimeSeconds;
+var c = document.getElementById("myCanvas");
+var ctx = c.getContext("2d");
+var radius = 150; // Arc radius
+var textRadius = 160;
+center = 550;
+
+var eventDict = {};
+
+function draw(){
+	//draw the background white so we can save the png
+	ctx.clearRect(0,0,c.width, c.height);
+	ctx.fillStyle = "white";
+	ctx.rect(0,0,c.width, c.height)	
+	ctx.fill();
+	
+	drawEvents();
+	drawClock();
+	writeValuesToTable();
+
+}
+
+function drawClock()
+{
+	ctx.lineWidth = 3;
+	ctx.fillStyle = "white";
+	ctx.strokeStyle = "black";
+	var startAngle = 0; // Starting point on circle
+	var endAngle = Math.PI*4; // End point on circle
+	ctx.beginPath();
+	ctx.arc(center, center, radius, startAngle, endAngle, false);		
+	ctx.fill();
+	ctx.stroke();
+	ctx.fillStyle = "black";
+	ctx.font = "32px sans-serif";
+	ctx.textAlign = "center";
+	ctx.fillText(document.getElementById("project").value, center, center);
+	//draw the indicators
+	var numberOfTickMarks = 24;
+	var tickLength = 20;
+	for ( var i = 0; i < numberOfTickMarks; i++ )
+	{
+		var angle = 360 / numberOfTickMarks * i;		
+		var radians = (angle-90) * Math.PI / -180;
+		var xStart = (radius + tickLength/2) * Math.cos(radians) + center;
+		var yStart = -1 * (radius + tickLength/2) * Math.sin(radians) + center;
+		var xEnd = (radius - tickLength/2) * Math.cos(radians) + center;
+		var yEnd = -1 * (radius - tickLength/2) * Math.sin(radians) + center;
+		ctx.lineWidth = 1;
+		if(angle % 90 == 0)
+		{
+			ctx.lineWidth = 5;
+		}
+		ctx.strokeStyle = "black";
+		ctx.beginPath();
+		ctx.moveTo(xStart, yStart);
+		ctx.lineTo(xEnd, yEnd);
+		
+		ctx.stroke();
+	}
+	ctx.lineWidth = 1;
+}
+
+function submit(){
+	totalTimeSeconds = parseInt(document.getElementById("runtime_mins").value) * 60 + parseInt(document.getElementById("runtime_secs").value);
+	degreesPerSecond = 360/totalTimeSeconds;
+	var eventTimeInSecs = parseInt(document.getElementById("event_min").value) * 60 + parseInt(document.getElementById("event_sec").value);
+	eventDict[eventTimeInSecs] = document.getElementById("event_name").value;
+	draw();
+}
+
+function drawEvents()
+{
+	var previousY = - 1;
+	var textHeight = 14;
+	ctx.font = "14px sans-serif";
+	for (key in eventDict)		
+	{	
+		
+		//mathy stuff
+		//var textOffset = Math.random() * 162;
+		var angle = key * degreesPerSecond;
+		
+		//adjust the word radius based on angle. Poles are farther than equator
+		var offsetRadius = textRadius + (Math.abs(Math.cos(angle/180 * Math.PI))) * 300;	
+
+		//left or right justify based on hemisphere
+		ctx.textAlign = (angle <=180) ? "left" : "right";
+		
+		//convert angle to radians
+		var radians = (angle-90) * Math.PI / -180;
+		
+		//figure out the x,y based on angle and polar radius
+		var xPos = offsetRadius * Math.cos(radians) + center;
+		var yPos = -1 * offsetRadius * Math.sin(radians) + center;
+		
+		//adjust spacing so words don't run over eachother
+		if(previousY != -1){
+			if (angle <= 180)
+			{
+				if (yPos - previousY < textHeight)
+				{
+					yPos = previousY + textHeight;
+				}
+			}else{
+				if (previousY - yPos < textHeight)
+				{
+					yPos = previousY - textHeight;
+				}
+			}			
+		}
+		previousY = yPos;
+
+		
+		
+		
+		//draw the connector lines
+		ctx.fillStyle = "black";
+		ctx.strokeStyle = "black";
+		ctx.beginPath();
+		ctx.moveTo(center, center);
+		ctx.lineTo(xPos, yPos);		
+		ctx.stroke();
+		
+		//draw the text
+		ctx.fillStyle = "black";
+		ctx.fillText(eventDict[key], xPos, yPos);
+		
+	}
+}
+
+function theGoodPlace()
+{
+	eventDict = {
+		6:"Meet Elenor",
+		18:"Meet Michael",
+		40:"You are dead",
+		60:"How Elenor Died",
+		120:"Doug got it right",
+		180:"You're in the good place",
+		195:"Title Card - Welcome to the neighborhood",
+		255:"Orientation - How points work",
+		360:"Elenor feeling guilty",
+		390:"Who Elenor is supposed to be",
+		470:"Meet Chidi",
+		540:"Promise you'll stay with me",
+		560:"I'm not supposed to be here",
+		600:"No Swearing Allowed",
+		675:"Meet Janet",
+		720:"Meet Tahani and Jianu",
+		765:"Jianu Doesn't Speak",
+		810:"Party Scene",
+		830:"Elenor Bad Person Flashback",
+		865:"Michael's Toast",
+		930:"Elenor eats all the shrimp",
+		960:"Elenor Mocks Tahani",
+		990:"Elenor Drunk",
+		1020:"Elenor Apologize to Chidi",
+		1110:"You're a good person, Chidi",
+		1190:"Destruction",
+		1230:"This is all your fault",
+		1320:"Teach me how to be good"
+	};
+	totalTimeSeconds = 1330;
+	degreesPerSecond = 360/totalTimeSeconds;
+	document.getElementById("project").value = "The Good Place";
+	draw();
+}
+
+function reset()
+{
+	eventDict = {};
+	document.getElementById("runtime_mins").value = 0;
+	document.getElementById("runtime_secs").value = 0;
+	draw();
+}
+
+function writeValuesToTable()
+{
+	var div = document.getElementById("myDiv");
+	div.innerHTML = "<p>Time - Event</p>";
+	for (key in eventDict)
+	{
+		div.innerHTML +=
+			"<p>" +
+			key +
+			" - " +
+			eventDict[key] +
+			"</p>";
+	}
+}
+

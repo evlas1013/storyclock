@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<link rel="stylesheet" href="style.css">		
+	</head>
+	<body onload="reset(); if(!fromQuery){hideCanvas()}; draw(); if(fromQuery){fromQuery=false};">
+		<p>
+			Storyclock is still very much in development. Thank you for your patience and kindness as it is developed.<br>
+			Reach out to me on <a href="https://twitter.com/NickWithMS" target="_blank">Twitter</a> with any feedback!<br>
+			Shoutout to <a href="https://twitter.com/Awakeland3d" target="_blank">Seth Worley</a> and <a href="https://plotdevices.co" target="_blank">Plot Devices</a> for the inspiration.
+		</p>
+		<div class="header_div">
+			<h1>LOAD/SAVE</h1>
+		<!--
+			<form>
+				<input class="input" name="username" id="username" size="20" placeholder="Username"/><br>
+				<button formmethod="post" onClick="setCloudData();" formaction="http://storyclock.nicksalve.com/save_clock.php">Save to cloud</button>
+				<button formmethod="get" formaction="http://storyclock.nicksalve.com/load_clocks.php">Load from cloud</button>
+				<input id="clockData" name="clockData" type="hidden">
+			</form>
+		-->
+			<br>
+			<button onClick="saveToJSON();">Save to File</button>
+			<button onClick="generateURL();">Get URL</button>
+			<button onClick="reset(); hideCanvas();">New Storyclock</button>
+			<button onClick="window.open('how_to_use.html', '_blank');">Help</button>					
+			<br>
+			<input class="readonly" value="Example Clocks" size="20" readonly>			
+			<select name="savedClock" id="savedClock" onChange="load();">
+				<option value="none">--Please Select--</option>
+				<option value="storyStructure">Story Structure</option>
+				<option value="theGoodPlace">The Good Place - Pilot</option>
+				<option value="superstore">Superstore - Pilot</option>
+				<option value="betterOffTed">Better Off Ted - Pilot</option>
+			</select>			
+			<br>
+			<input value="Import" class="readonly" size="20" readonly> <input type="file" name="inputfile" id="inputfile" accept=".csv, .storyclock">	
+			<button id="loadButton" style="visibility: hidden;" onClick="draw(); writeValuesToTable(); ">Import Complete! Click Here.</button>
+		</div>
+		<div class="header_div">
+			<h1>PROJECT DETAILS</h1>
+			<input value="Project Title" class="readonly" size ="13" readonly><input class="input" id="project" size="20" value=""/><button class="button" onClick="draw();">Update</button><br>
+			<input value="Author" class="readonly" size="13" readonly><input class="input" id="author" size="20" value=""/><button class="button" onClick="draw();">Update</button><br>
+			<input value="Runtime" class="readonly" size="13" readonly>
+			<input id="runtime_mins" placeholder="MM" size="7"><input class=input id="runtime_secs" placeholder="SS" size="7">
+			<button class="button" id="updateRuntime" onClick="updateRuntime();">Update</button><br>
+			<pre id="output"></pre>
+		</div>
+		<div id="toggles">
+			<button id="toggle_canvas" onClick="toggleCanvas();">Hide StoryClock</button>				
+		</div>		
+		<div class=header_div id="canvas_div">		
+			<div class="toggle_container">
+				<label class="switch">
+					<input id="includeTimes" onChange='draw();' class="switch-input" type="checkbox"/>
+					<span class="switch-label" data-on="Include Time" data-off="Include Time"></span>
+					<span class="switch-handle"></span> 
+				</label>
+				<label class="switch">
+					<input id="widen" onChange="draw();" class="switch-input" type="checkbox">
+					<span class="switch-label" data-on="Full HD" data-off="Full HD"></span>
+					<span class="switch-handle"></span>
+				</label>
+				<label class="switch">
+					<input id="useBackground" onChange="draw();" class="switch-input" type="checkbox">
+					<span class="switch-label" data-on="Image" data-off="Image"></span>
+					<span class="switch-handle"></span>
+				</label>
+				<label class="switch">
+					<input id="darkMode" onChange="toggleDarkMode();" class="switch-input" type="checkbox">
+					<span class="switch-label" data-on="Dark Mode" data-off="Dark Mode"></span>
+					<span class="switch-handle"></span>
+				</label>
+				<label class="switch">
+					<input id="omitEndCredits" onChange='omitEndCredits = !omitEndCredits; draw();' class="switch-input" type="checkbox"/>
+					<span class="switch-label" data-on="Omit Credits" data-off="Omit Credits"></span>
+					<span class="switch-handle"></span> 
+				</label>
+				<label class="switch">
+					<input id="drawActAreas" onChange='drawActAreas = !drawActAreas; draw();' class="switch-input" type="checkbox"/>
+					<span class="switch-label" data-on="Shade Acts" data-off="Shade Acts"></span>
+					<span class="switch-handle"></span> 
+				</label>
+			</div>
+			<img src="img/parchment2.jpg" id="backgroundImage" width="0" height="0">
+			<img src="img/slate.jpg" id="slate" width="0" height="0">
+			<canvas id="myCanvas" width="1080" height="1080">Y U No have Canvas Browzr?</canvas>
+		</div>		
+		<div class="header_div">
+			<h3>Note: "Start Clocking" does not currently support pausing. If you stop and restart, your counter will be reset to 0.</h3>
+			<button id="start_clocking" style="background-color: green;" onClick="startClocking();">Start Clocking</button>
+			<button id="add_opening" onClick="quickAdd('Opening Sequence');">Opening Sequence</button>			
+			<button id="add_end_credits" onClick="quickAdd('End Credits');">End Credits</button>			
+			<br>
+			<input id="event_min" placeholder="MM" size="3">
+			<input class="input" id="event_sec" placeholder="SS" size="3">
+			<input class="input" id="event_name" placeholder="Add New Event">
+			<button class="button" id="submit" onClick="submit();">Add</button>			
+			<button onClick="totalTimeSeconds = document.getElementById('event_sec').value; displayRuntime(); updateRuntime();">Set Runtime</button>			
+			<!--<label class="switch">
+				<input id="autoUpdate" onChange='autoupdateRuntime = !autoupdateRuntime;' class="switch-input" type="checkbox"/>
+				<span class="switch-label" data-on="Real Time" data-off="Real Time"></span>
+				<span class="switch-handle"></span> 
+			</label>-->
+		</div>
+		<div class="toggle_container">
+			<h3>Swap the sort order of the beat list. Default is DESCENDING to make live-clocking easier.</h3>
+			<label class="switch">
+				<input id="sortOrder" onChange="sortAsc = !sortAsc; writeValuesToTable();" class="switch-input" type="checkbox">
+				<span class="switch-label" data-on="Ascending" data-off="Descending"></span>
+				<span class="switch-handle"></span>
+			</label>			
+		</div>
+		<div id="myDiv" class="dataArry"></div>
+	<script src="storyclock.js"></script>
+	</body>
+</html>

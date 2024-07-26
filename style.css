@@ -1,0 +1,306 @@
+:root
+			{
+				--c1: aliceblue;
+				--c2: cadetblue;
+				--c3: lightgray;
+				--c4: seagreen;
+				--c5: whitesmoke;
+				--input: darkseagreen;
+				--input-label: grey;
+				--button: darkcyan;
+				--button-hover: darkseagreen;
+				--border: darkgray;
+				--alert: red;
+				--alert_hover: darkred;
+				--text: black;
+				--negative-text: whitesmoke;
+				--default-fonts: "Gill Sans", "Gill Sans MT", "Myriad Pro", "DejaVu Sans Condensed", Helvetica, Arial, "sans-serif";
+				font-family: var(--default-fonts);
+				--s1: 14px;
+				--s2: 18px;
+				--s3: 28px;
+				border-color: var(--c3);
+			}
+			
+			div.dataArry{
+				background-color: var(--c1);
+				padding: 5px;
+				border-radius: 5px;
+				border-style: solid;
+				margin: 5px;
+			}
+			
+			div.header_div {
+				background-color: var(--c1);
+				padding: 10px;
+				border-radius: 5px;
+				border-color: var(--border);
+				border-style: solid;
+				margin: 5px;
+				
+			}
+			
+			div.data_element
+			{
+				background-color: var(--c1);
+				padding: 5px;
+				border-radius: 5px;
+				border-style: solid;
+				margin: 5px;
+			}
+			
+			div.sub_element
+			{
+				background-color: var(--c1);
+				padding: 5px;
+				border-radius: 10px;
+				border-style: solid;
+				margin: 5px;
+			}
+			
+			button {
+			  
+			  background-color: var(--button);			  
+			  border: none;
+			  color: var(--c5);
+			  padding: 15px;
+			  text-align: center;
+			  text-decoration: none;
+			  display: inline-block;
+			  font-size: var(--s2);
+			  margin: 4px;
+			  cursor: pointer;
+			  border-radius: 10px;
+			}
+			
+			button:hover{
+				background-color: var(--button-hover);
+			}
+
+			h1{
+				font-size: var(--s3);
+			}
+
+			input {
+				background-color: var(--input);
+				border-style: solid;
+				color: var(--text);
+			 	padding: 15px;
+				text-align: center;
+			  	text-decoration: none;
+			  	display: inline-block;
+				font-size: var(--s2);
+			  	margin: 4px;
+			  	cursor: pointer;
+			  	border-radius: 10px;
+				font-family: "Courier New", monospace;
+			}
+
+			select {
+				background-color: var(--c1);
+				border-style: solid;
+				color: var(--text);
+			 	padding: 15px;
+				text-align: center;
+			  	text-decoration: none;
+			  	display: inline-block;
+				font-size: var(--s2);
+			  	margin: 4px;
+			  	cursor: pointer;
+			  	border-radius: 10px;
+			}
+
+			/* Customize the label (the container) */
+.container {
+	display: inline-block;
+	position: relative;
+	padding-left: 5vw;
+	margin-bottom: 12px;
+	cursor: pointer;
+	font-size: 22px;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+  }
+  
+  /* Hide the browser's default checkbox */
+  .container input {
+	position: absolute;
+	opacity: 0;
+	cursor: pointer;
+	height: 0;
+	width: 0;
+  }
+  
+  /* Create a custom checkbox */
+  .checkmark {
+	position: absolute;
+	top: -2vw;
+	left: 0;
+	height: 4vw;
+	width: 4vw;
+	border-radius: 1vw;
+	background-color: #eee;
+  }
+  
+  /* On mouse-over, add a grey background color */
+  .container:hover input ~ .checkmark {
+	background-color: #ccc;
+  }
+  
+  /* When the checkbox is checked, add a blue background */
+  .container input:checked ~ .checkmark {
+	background-color: #2196F3;
+  }
+  
+  /* Create the checkmark/indicator (hidden when not checked) */
+  .checkmark:after {
+	content: "";
+	position: absolute;
+	display: none;
+  }
+  
+  /* Show the checkmark when checked */
+  .container input:checked ~ .checkmark:after {
+	display: inline-block;
+  }
+  
+  /* Style the checkmark/indicator */
+  .container .checkmark:after {
+	left: 1vw;
+	top: -0.5vw;
+	width: 1.5vw;
+	height: 3vw;
+	border: solid white;
+	border-width: 0 10px 10px 0;
+	-webkit-transform: rotate(45deg);
+	-ms-transform: rotate(45deg);
+	transform: rotate(45deg);
+  }
+
+			.switch {
+				position: relative;
+				display: inline-block;
+				vertical-align: top;
+				width: 100px;
+				height: 30px;
+				padding: 3px;
+				margin: 0 10px 10px 0;
+				background: linear-gradient(to bottom, #eeeeee, #FFFFFF 25px);
+				background-image: -webkit-linear-gradient(top, var(--button), var(--button-hover) 25px);
+				border-radius: 18px;
+				box-shadow: inset 0 -1px white, inset 0 1px 1px rgba(0, 0, 0, 0.05);
+				cursor: pointer;
+			  }
+			  .switch-input {
+				position: absolute;
+				top: 0;
+				left: 0;
+				opacity: 0;
+			  }
+			  .switch-label {
+				position: relative;
+				display: block;
+				height: inherit;
+				font-size: 10px;
+				text-transform: uppercase;
+				background: var(--input);
+				border-radius: inherit;
+				box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.12), inset 0 0 2px rgba(0, 0, 0, 0.15);
+			  }
+			  .switch-label:before, .switch-label:after {
+				position: absolute;
+				top: 50%;
+				margin-top: -.5em;
+				line-height: 1;
+				-webkit-transition: inherit;
+				-moz-transition: inherit;
+				-o-transition: inherit;
+				transition: inherit;
+			  }
+			  .switch-label:before {
+				content: attr(data-off);
+				right: 11px;
+				color: var(--text);
+				text-shadow: 0 1px rgba(255, 255, 255, 0.5);
+			  }
+			  .switch-label:after {
+				content: attr(data-on);
+				left: 11px;
+				color: var(--negative-text);
+				text-shadow: 0 1px rgba(0, 0, 0, 0.2);
+				opacity: 0;
+			  }
+			  .switch-input:checked ~ .switch-label {
+				   background: var(--c4);
+				box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.15), inset 0 0 3px rgba(0, 0, 0, 0.2);
+			  }
+			  .switch-input:checked ~ .switch-label:before {
+				opacity: 0;
+			  }
+			  .switch-input:checked ~ .switch-label:after {
+				opacity: 1;
+			  }
+			  .switch-handle {
+				position: absolute;
+				top: 4px;
+				left: 4px;
+				width: 28px;
+				height: 28px;
+				background: linear-gradient(to bottom, #FFFFFF 40%, #f0f0f0);
+				background-image: -webkit-linear-gradient(top, #FFFFFF 40%, #f0f0f0);
+				border-radius: 100%;
+				box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.2);
+			  }
+			  .switch-handle:before {
+				content: "";
+				position: absolute;
+				top: 50%;
+				left: 50%;
+				margin: -6px 0 0 -6px;
+				width: 12px;
+				height: 12px;
+				background: linear-gradient(to bottom, #eeeeee, #FFFFFF);
+				background-image: -webkit-linear-gradient(top, #eeeeee, #FFFFFF);
+				border-radius: 6px;
+				box-shadow: inset 0 1px rgba(0, 0, 0, 0.02);
+			  }
+			  .switch-input:checked ~ .switch-handle {
+				left: 74px;
+				box-shadow: -1px 1px 5px rgba(0, 0, 0, 0.2);
+				box-shadow: -1px 1px 5px rgba(0, 0, 0, 0.2);
+			  }
+			  /* Transition
+				  ========================== */
+			  .switch-label, .switch-handle {
+				transition: All 0.3s ease;
+				-webkit-transition: All 0.3s ease;
+				-moz-transition: All 0.3s ease;
+				-o-transition: All 0.3s ease;
+			  }
+
+			
+			body {				
+			  	text-decoration: none;
+			  	font-size: var(--s1);
+				display: inline-block;
+				background-color: var(--c5);
+			}
+			
+			.red_button {
+				border-color: var(--alert_hover);
+				background-color: var(--alert);
+			}
+			
+			.red_button:hover
+			{
+				background-color: var(--alert_hover);
+			}
+
+			
+			.readonly {
+			 	background-color: var(--input-label);			  
+			 	color: var(--negative-text);
+				border-style: none;
+			}
