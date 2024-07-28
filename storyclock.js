@@ -414,8 +414,13 @@ function load(inSavedClockId)
 		case "superstore":
 			superstore();
 			break;
+			
 		case "betterOffTed":
 			betterOffTed();
+			break;
+			
+		case "elf":
+			elf();
 			break;
 	}
 	writeValuesToTable();
@@ -606,6 +611,79 @@ function superstore()
 	eventDict["runtime"] = totalTimeSeconds;
 	draw();
 }
+
+function elf()
+	{
+		reset();
+		eventDict = {
+		"0": {
+			"title": "Opening Sequence"
+		},
+		"30": {
+			"title": "You're probably here about the story"
+		},
+		"225": {
+			"title": "Buddy as a baby, taken by Santa"
+		},
+		"536": {
+			"title": "Buddy doesn't fit in an Elf's world"
+		},
+		"895": {
+			"title": "Buddy leaves the North Pole"
+		},
+		"1316": {
+			"title": "Buddy in Empire State Building/Finds Dad"
+		},
+		"1522": {
+			"title": "Buddy arrives at Gimbal's"
+		},
+		"2058": {
+			"title": "Buddy gives lingerie to dad"
+		},
+		"2297": {
+			"title": "He's not Santa!"
+		},
+		"2568": {
+			"title": "Walter brings Buddy home"
+		},
+		"3140": {
+			"title": "Snowball Fight"
+		},
+		"3480": {
+			"title": "Buddy goes to work"
+		},
+		"3919": {
+			"title": "Buddy/Jovie Date"
+		},
+		"4045": {
+			"title": "Miles Finch"
+		},
+		"4341": {
+			"title": "Buddy Runs Away"
+		},
+		"4676": {
+			"title": "Walter/Michael find the Sleigh/Engine"
+		},
+		"5131": {
+			"title": "Jovie sings carols in the street"
+		},
+		"5465": {
+			"title": "End Credits"
+		},
+		"runtime": 5820,
+		"project": "Elf",
+		"author": "David Berenbaum",
+		"EndCredits": 5465
+		}
+		
+		totalTimeSeconds = eventDict["runtime"];
+		setDegreesPerSecond();
+		document.getElementById("project").value = eventDict["project"];
+		document.getElementById("author").value = eventDict["author"];
+		displayRuntime();
+		//eventDict["runtime"] = totalTimeSeconds;
+		draw();
+	}
 
 function reset()
 {
