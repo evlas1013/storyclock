@@ -23,7 +23,8 @@
 			<button onClick="saveToJSON();">Save to File</button>
 			<button onClick="generateURL();">Get URL</button>
 			<button onClick="reset(); hideCanvas();">New Storyclock</button>
-			<button onClick="window.open('how_to_use.html', '_blank');">Help</button>					
+			<button onClick="window.open('how_to_use.html', '_blank');">Help</button>
+			<button onClick="copyToClipboard();">Copy to Clipboard</button>
 			<br>
 			<input class="readonly" value="Example Clocks" size="20" readonly>			
 			<select name="savedClock" id="savedClock" onChange="load();">
@@ -36,7 +37,7 @@
 			</select>			
 			<br>
 			<input value="Import" class="readonly" size="20" readonly> <input type="file" name="inputfile" id="inputfile" accept=".csv, .storyclock">	
-			<button id="loadButton" style="visibility: hidden;" onClick="draw(); writeValuesToTable(); ">Import Complete! Click Here.</button>
+			<button id="loadButton" style="visibility: hidden;" onClick="unhideCanvas(); draw(); writeValuesToTable();">Import Complete! Click Here.</button>
 		</div>
 		<div class="header_div">
 			<h1>PROJECT DETAILS</h1>
@@ -113,6 +114,6 @@
 			</label>			
 		</div>
 		<div id="myDiv" class="dataArry"></div>
-	<script src="storyclock.js"></script>
+		<script src="storyclock.js"></script>
 	</body>
 </html>

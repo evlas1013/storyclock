@@ -1424,3 +1424,23 @@ function redistributeTimes(inNewTime)
 		}
 	eventDict = redistributedEventDict;
 }
+
+function copyToClipboard()
+{
+	let beatText = stringifyBeats();
+	navigator.clipboard.writeText(beatText);
+	alert("Beats copied to clipboard. \n" + beatText);
+}
+
+function stringifyBeats()
+{
+	var eventString = "";
+	for (var key in eventDict)
+		{
+			if(eventDict[key].title != null)
+			{
+				eventString += eventDict[key].title + "\n";
+			}
+		}
+	return eventString;
+}
