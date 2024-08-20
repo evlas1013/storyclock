@@ -736,7 +736,7 @@ function writeValuesToTable()
 			checkBox("Cyan", key, eventObject.isCyan)+
 			checkBox("Magenta", key, eventObject.isMagenta)+
 			checkBox("Yellow", key, eventObject.isYellow)+		
-			checkBox("Black", key, eventObject.isBlack)+"<br>"+
+			checkBox("Black", key, eventObject.isAct)+"<br>"+
 			"<button class='button' onClick = 'updateValue("+key+");'>Update</button>"+
 			"<button class='red_button' onClick = 'deleteValue("+key+");'>Delete</button>"+
 			"</div>";
@@ -1404,9 +1404,9 @@ function addBlackLink(inKey)
 {
 	var checkbox = document.getElementById(inKey+"isBlack");
 	if(checkbox.checked == true)
-		eventDict[inKey].isBlack = true;
+		eventDict[inKey].isAct = true;
 	else
-		eventDict[inKey].isBlack = false;
+		eventDict[inKey].isAct = false;
 }
 
 function redistributeTimes(inNewTime)
