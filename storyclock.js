@@ -737,6 +737,7 @@ function writeValuesToTable()
 			checkBox("Magenta", key, eventObject.isMagenta)+
 			checkBox("Yellow", key, eventObject.isYellow)+		
 			checkBox("Black", key, eventObject.isAct)+"<br>"+
+			"<input class='input' id='newKey"+key+"' value='"+key+"' size='4'>"+
 			"<button class='button' onClick = 'updateValue("+key+");'>Update</button>"+
 			"<button class='red_button' onClick = 'deleteValue("+key+");'>Delete</button>"+
 			"</div>";
@@ -787,7 +788,16 @@ function checkBox(inColor, inKey, isChecked)
 
 function updateValue(inKey)
 {
+	var newKey = parseInt(document.getElementById("newKey" + inKey).value);
 	eventDict[inKey].title = document.getElementById("eventInput" + inKey).value;
+	
+	//if we're updating the key, copy to the new key and delete the old key
+	if(parseInt(inKey) != newKey)
+		{
+			eventDict[newKey] = eventDict[inKey];
+			delete eventDict[inKey];
+		}
+		
 	writeValuesToTable();
 	draw();
 }
