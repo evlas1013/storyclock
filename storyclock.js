@@ -422,8 +422,84 @@ function load(inSavedClockId)
 		case "elf":
 			elf();
 			break;
+		
+		case "pilotStructure":
+			pilotStructure();
+			break;
 	}
 	writeValuesToTable();
+}
+
+function pilotStructure()
+{
+	reset();
+	eventDict = 
+	{
+		"0": {
+			"title": "FORMING: Cold Open / Introduce Setting",
+			"isAct": true
+		},
+		"30": {
+			"title": "Meet Character 1"
+		},
+		"60": {
+			"title": "Meet Character 2"
+		},
+		"90": {
+			"title": "Meet Character 3"
+		},
+		"120": {
+			"title": "Meet Character 4",
+		},
+		"150": {
+			"title": "Introduce \"A\" Plot"
+		},
+		"190": {
+			"title": "Opening Credits",
+			"isAct": true
+		},
+		"210": {
+			"title": "STORMING: Set up character dynamics",
+			"isAct": true
+		},
+		"270": {
+			"title": "B Plot Begins"
+		},
+		"330": {
+			"title": "Set the stakes. We're a team now."
+		},
+		"450": {
+			"title": "First team challenge. Failure."
+		},
+		"520": {
+			"title": "NORMING: Begin reconcile differences",
+			"isAct": true
+		},
+		"660": {
+			"title": "Second Challenge: Better but not there yet"
+		},
+		"800": {
+			"title": "Individual relationships strengthen"
+		},
+		"950": {
+			"title": "Performing: Acknowledge roles and function together",
+			"isAct": true
+		},
+		"1090": {
+			"title": "Final Test: The team succeeds",
+			"isAct": true
+		},
+		"1255": {
+			"title": "Can't wait to do it again",
+			"isAct": true
+		},
+		"runtime": 1320,
+		"project": "Pilot Outline",
+		"author": "Greaty McAuthorson"
+	}
+	document.getElementById("project").value = eventDict["project"];
+	document.getElementById("author").value = eventDict["author"];
+	draw();
 }
 function storyStructure()
 {
